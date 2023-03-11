@@ -4,6 +4,7 @@ class MyTheme {
   // static const Color lightPrimary2 = Color(0xff5D9CEC);
   static const Color lightPrimary = Color(0xffff8A80);
   static const Color grey = Color(0xffC8C9CB);
+  static const Color green = Color(0xff61E757);
   static const Color lightScaffoldBackGroundColor = Color(0xffDFECDB);
   static final ThemeData lightTheme = ThemeData(
       floatingActionButtonTheme:

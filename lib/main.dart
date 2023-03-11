@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/ui/my_theme.dart';
+import 'package:todo_app/ui/screens/edit_screen/edit_screen.dart';
 import 'package:todo_app/ui/screens/home_screen.dart';
 import 'firebase_options.dart';
 
@@ -21,6 +22,9 @@ class MyTodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        EditScreen.routeName: (_)=> EditScreen(),
+      },
       debugShowCheckedModeBanner: false,
       theme: MyTheme.lightTheme,
         home: AnimatedSplashScreen(

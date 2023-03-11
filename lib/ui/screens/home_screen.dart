@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.list), label: ''),
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings_outlined), label: '')
+                icon: Icon(Icons.settings), label: '')
           ],
         ),
       ),

@@ -23,6 +23,24 @@ class MyDatabase {
     return doc.set(task);
   }
 
+  static Future<void> editTasks (TaskMD taskMD) async {
+    var taskCollection = getTasksCollection();
+    return await taskCollection.doc(taskMD.id).update({
+      'id': taskMD.id,
+      'title': taskMD.title,
+      'description': taskMD.description,
+      'dateTime': taskMD.dateTime.millisecondsSinceEpoch,
+      'isDone': taskMD.isDone
+    });
+  }
+
+  static Future<void> markAsDone (TaskMD taskMD) async {
+    var taskCollection = getTasksCollection();
+    return await taskCollection.doc(taskMD.id).update({
+      'isDone': taskMD.isDone ? false : true
+    });
+  }
+
   static Future<List<TaskMD>> getTasksList(DateTime dateTime) async {
     var querySnapShot = await getTasksCollection()
         .where('dateTime',

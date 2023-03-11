@@ -44,11 +44,11 @@ class _TaskItemsState extends State<TaskItems> {
         ),
         child: InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) {
-                return EditScreen();
-              },
-            ));
+            Navigator.pushNamed(context, EditScreen.routeName,
+                arguments: widget.taskMD);
+            // Navigator.of(context).push(MaterialPageRoute(
+            //   builder: (context) => EditScreen(widget.taskMD),
+            // ));
           },
           child: Container(
             width: double.infinity,
@@ -61,46 +61,70 @@ class _TaskItemsState extends State<TaskItems> {
               children: [
                 Container(
                   margin: EdgeInsets.only(left: 12),
-                  color: MyTheme.lightPrimary,
+                  color:
+                  widget.taskMD.isDone? MyTheme.green: MyTheme.lightPrimary,
                   width: 6,
                   height: 80,
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 20,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      widget.taskMD.title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge
-                          ?.copyWith(overflow: TextOverflow.fade, fontSize: 20),
-                    ),
-                    Text(
-                      widget.taskMD.description,
-                      style:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontSize: 14,
-                                overflow: TextOverflow.fade,
-                              ),
-                    )
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        widget.taskMD.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge
+                            ?.copyWith(
+                          color: widget.taskMD.isDone? MyTheme.green: Colors.black,
+                                overflow: TextOverflow.fade, fontSize: 20),
+                      ),
+                      Text(
+                        widget.taskMD.description,
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              color: widget.taskMD.isDone? MyTheme.green: Colors.black,
+                                  fontSize: 14,
+                                  overflow: TextOverflow.fade,
+                                ),
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   width: 6,
                 ),
-                Container(
-                  width: 70,
-                  height: 45,
-                  margin: EdgeInsets.only(right: 14),
-                  decoration: BoxDecoration(
-                      color: MyTheme.lightPrimary,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: ImageIcon(AssetImage('assets/ic_check.png'),
-                      color: Colors.white),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      MyDatabase.markAsDone(widget.taskMD);
+                    });
+                  },
+                  child: widget.taskMD.isDone
+                      ? Padding(
+                          padding: const EdgeInsets.only(right: 24.0),
+                          child: Text(
+                            'DONE !',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(color: MyTheme.green, fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      : Container(
+                          width: 70,
+                          height: 45,
+                          margin: EdgeInsets.only(right: 14),
+                          decoration: BoxDecoration(
+                              color: MyTheme.lightPrimary,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: ImageIcon(AssetImage('assets/ic_check.png'),
+                              color: Colors.white),
+                        ),
                 )
               ],
             ),
@@ -125,7 +149,6 @@ class _TaskItemsState extends State<TaskItems> {
           negAction: () {
             //Todo: Undo Button
           });
-    }, negActionTitle: 'No', negAction: () {
-    });
+    }, negActionTitle: 'No', negAction: () {});
   }
 }
