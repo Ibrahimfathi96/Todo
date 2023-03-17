@@ -6,6 +6,7 @@ import '../../../custom_widgets/language_bottom_sheet.dart';
 import '../../../custom_widgets/theme_bottom_sheet.dart';
 import '../../my_theme.dart';
 
+
 class SettingsTab extends StatefulWidget {
   @override
   State<SettingsTab> createState() => _SettingsTabState();
@@ -30,7 +31,7 @@ class _SettingsTabState extends State<SettingsTab> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Language',
+                AppLocalizations.of(context)!.lang,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               Padding(
@@ -40,7 +41,7 @@ class _SettingsTabState extends State<SettingsTab> {
                     showLangButtonSheet();
                   },
                   child: Container(
-                    padding: const EdgeInsets.only(right: 6, left: 14),
+                    padding: settingsProvider.isEnglish()? const EdgeInsets.only(right: 6, left: 14):EdgeInsets.only(right: 14, left: 6),
                     height: 50,
                     decoration:  BoxDecoration(
                         color: settingsProvider.currentTheme == ThemeMode.dark? MyTheme.darkPrimary:Colors.white,
@@ -72,7 +73,7 @@ class _SettingsTabState extends State<SettingsTab> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Theme',
+                AppLocalizations.of(context)!.theme,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               Padding(
@@ -82,7 +83,7 @@ class _SettingsTabState extends State<SettingsTab> {
                     showThemeButtonSheet();
                   },
                   child: Container(
-                    padding: const EdgeInsets.only(right: 6, left: 14),
+                    padding: settingsProvider.isEnglish()? const EdgeInsets.only(right: 6, left: 14):EdgeInsets.only(right: 14, left: 6),
                     height: 50,
                     decoration:  BoxDecoration(
                         color: settingsProvider.currentTheme == ThemeMode.dark? MyTheme.darkPrimary:Colors.white,

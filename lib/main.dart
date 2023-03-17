@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/ui/my_theme.dart';
 import 'package:todo_app/ui/screens/edit_screen/edit_screen.dart';
 import 'package:todo_app/ui/screens/home_screen.dart';
@@ -27,7 +28,9 @@ class MyTodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     settingsProvider = Provider.of(context);
+    getValueFromSharedPreferences();
     return MaterialApp(
+        locale: Locale(settingsProvider.currentLang),
         localizationsDelegates: const [
           AppLocalizations.delegate, // Add this line
           GlobalMaterialLocalizations.delegate,
@@ -53,5 +56,16 @@ class MyTodoApp extends StatelessWidget {
             splashTransition: SplashTransition.fadeTransition,
             backgroundColor: MyTheme.lightScaffoldBackGroundColor)
     );
+  }
+  getValueFromSharedPreferences() async {
+    final pref = await SharedPreferences.getInstance();
+    // set lang from sharedPreferences
+    settingsProvider.getLang(pref.getString('lang') ?? 'ar');
+    // set theme from sharedPreferences
+    if (pref.getString('theme') == 'light') {
+      settingsProvider.changeTheme(ThemeMode.light);
+    } else if (pref.getString('theme') == 'dark') {
+      settingsProvider.changeTheme(ThemeMode.dark);
+    }
   }
 }

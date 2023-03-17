@@ -51,7 +51,7 @@ class MyTheme {
   static final ThemeData darkTheme = ThemeData(
     accentColor:darkBlue ,
       floatingActionButtonTheme:
-      const FloatingActionButtonThemeData(backgroundColor: darkBlue),
+      const FloatingActionButtonThemeData(backgroundColor: darkScaffoldBackGroundColor),
       textTheme: const TextTheme(
         headlineSmall: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),

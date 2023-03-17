@@ -6,7 +6,7 @@ import 'package:todo_app/my_database/my_database.dart';
 import 'package:todo_app/my_database/task_db.dart';
 import 'package:todo_app/ui/my_theme.dart';
 import 'package:todo_app/utils/dialog%20utils.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../ui/screens/edit_screen/edit_screen.dart';
 
 class TaskItems extends StatefulWidget {
@@ -34,16 +34,18 @@ class _TaskItemsState extends State<TaskItems> {
           motion: DrawerMotion(),
           children: [
             SlidableAction(
-              borderRadius: BorderRadius.only(
+              borderRadius: settingsProvider.currentLang=='en'?const BorderRadius.only(
                   topLeft: Radius.circular(20),
-                  bottomLeft: Radius.circular(20)),
+                  bottomLeft: Radius.circular(20)):const BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
               onPressed: (context) {
                 deleteTaskItem();
               },
-              backgroundColor: Color(0xFFFE4A49),
+              backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
               icon: Icons.delete,
-              label: 'Delete',
+              label:AppLocalizations.of(context)!.delete,
             ),
           ],
         ),
@@ -66,7 +68,7 @@ class _TaskItemsState extends State<TaskItems> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 12),
+                  margin: settingsProvider.currentLang=='en'? const EdgeInsets.only(left: 12):const EdgeInsets.only(right: 12),
                   color:
                   widget.taskMD.isDone? MyTheme.green: Theme.of(context).accentColor,
                   width: 6,
@@ -112,9 +114,9 @@ class _TaskItemsState extends State<TaskItems> {
                   },
                   child: widget.taskMD.isDone
                       ? Padding(
-                          padding: const EdgeInsets.only(right: 24.0),
+                          padding: settingsProvider.currentLang=='en'?const EdgeInsets.only(right: 24.0):const EdgeInsets.only(left: 24.0),
                           child: Text(
-                            'DONE !',
+                            AppLocalizations.of(context)!.done,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
@@ -124,7 +126,7 @@ class _TaskItemsState extends State<TaskItems> {
                       : Container(
                           width: 70,
                           height: 45,
-                          margin: EdgeInsets.only(right: 14),
+                          margin:settingsProvider.currentLang=='en'? EdgeInsets.only(right: 14):EdgeInsets.only(left: 14),
                           decoration: BoxDecoration(
                               color: Theme.of(context).accentColor,
                               borderRadius: BorderRadius.circular(20)),

@@ -6,6 +6,8 @@ import 'package:todo_app/utils/date_utils.dart';
 import 'package:todo_app/utils/dialog%20utils.dart';
 import '../../../my_database/task_db.dart';
 import '../../my_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 
 class EditScreen extends StatefulWidget {
@@ -24,7 +26,7 @@ class _EditScreenState extends State<EditScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Task'),
+        title: Text(AppLocalizations.of(context)!.edit_task),
       ),
       body: SingleChildScrollView(
         child: Stack(
@@ -57,7 +59,7 @@ class _EditScreenState extends State<EditScreen> {
                       children: [
                         Center(
                             child: Text(
-                          'Edit Task',
+                              AppLocalizations.of(context)!.edit_task,
                           style: Theme.of(context).textTheme.headlineLarge,
                         )),
                         Expanded(
@@ -76,7 +78,6 @@ class _EditScreenState extends State<EditScreen> {
                                       .textTheme
                                       .headlineLarge
                                       ?.copyWith(overflow: TextOverflow.fade, fontSize: 20),
-
                                 decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
@@ -86,8 +87,8 @@ class _EditScreenState extends State<EditScreen> {
                                     labelStyle: Theme.of(context)
                                         .textTheme
                                         .headlineLarge,
-                                    hintText: 'Edit the title',
-                                  hintStyle: TextStyle(
+                                    hintText: AppLocalizations.of(context)!.edit_title,
+                                  hintStyle: const TextStyle(
                                     color: Colors.grey
                                   )
                                 ),
@@ -115,8 +116,8 @@ class _EditScreenState extends State<EditScreen> {
                                     labelStyle: Theme.of(context)
                                         .textTheme
                                         .headlineLarge,
-                                    hintText: 'Edit the description',
-                                    hintStyle: TextStyle(
+                                    hintText: AppLocalizations.of(context)!.edit_desc,
+                                    hintStyle: const TextStyle(
                                     color: Colors.grey
                                 )),
                               ),
@@ -130,7 +131,7 @@ class _EditScreenState extends State<EditScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 12.0),
                                     child: Text(
-                                      'Select Time',
+                                      AppLocalizations.of(context)!.select_date,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleLarge,
@@ -148,7 +149,7 @@ class _EditScreenState extends State<EditScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 4.0, horizontal: 12),
                                         child: Text(
-                                          MyDateUtils.formatTaskDate(taskMD.dateTime),
+                                          MyDateUtils.formatTaskDate(taskMD.dateTime,context),
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall
@@ -189,7 +190,7 @@ class _EditScreenState extends State<EditScreen> {
                                   width: 6,
                                 ),
                                 Text(
-                                  'SUBMIT',
+                                  AppLocalizations.of(context)!.submit,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall

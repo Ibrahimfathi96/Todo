@@ -3,9 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/Providers/settings_provider.dart';
 import 'package:todo_app/my_database/my_database.dart';
 import 'package:todo_app/my_database/task_db.dart';
-import 'package:todo_app/ui/my_theme.dart';
 import 'package:todo_app/utils/date_utils.dart';
 import 'package:todo_app/utils/dialog%20utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class AddTaskSheet extends StatefulWidget {
   @override
@@ -33,14 +34,14 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
           children: [
             Center(
                 child: Text(
-              'Add New Task',
+              AppLocalizations.of(context)!.add_new_task,
               style: Theme.of(context).textTheme.headlineLarge,
             )),
             TextFormField(
               controller: titleController,
               validator: (input) {
                 if (input == null || input.trim().isEmpty) {
-                  return "Please enter a valid title";
+                  return AppLocalizations.of(context)!.valid_title;
                 }
                 return null;
               },
@@ -51,7 +52,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
                       )
                   ),
                   labelStyle: Theme.of(context).textTheme.headlineLarge,
-                  hintText: 'Enter Your Task Title',
+                  hintText: AppLocalizations.of(context)!.task_hint,
                   hintStyle: TextStyle(
                       color: Colors.grey
                   )
@@ -61,7 +62,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
               controller: descController,
               validator: (input) {
                 if (input == null || input.trim().isEmpty) {
-                  return "Please enter a valid description";
+                  return AppLocalizations.of(context)!.valid_desc;
                 }
                 return null;
               },
@@ -73,7 +74,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
                         color: Theme.of(context).accentColor
                     )
                 ),
-                hintText: 'Task Description',
+                hintText: AppLocalizations.of(context)!.task_description,
                   hintStyle: TextStyle(
                       color: Colors.grey
                   ),
@@ -86,7 +87,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Text(
-                    'Select Date',
+                    AppLocalizations.of(context)!.select_date,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ),
@@ -101,7 +102,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 4.0, horizontal: 12),
                     child: Text(
-                      MyDateUtils.formatTaskDate(selectedDate),
+                      MyDateUtils.formatTaskDate(selectedDate,context),
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color: Theme.of(context).accentColor, fontSize: 22),
                     ),
@@ -125,7 +126,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
                       width: 6,
                     ),
                     Text(
-                      'SUBMIT',
+                      AppLocalizations.of(context)!.submit,
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall

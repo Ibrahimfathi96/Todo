@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/Providers/settings_provider.dart';
 import 'package:todo_app/ui/screens/settings_tab/settings_tab.dart';
 import 'package:todo_app/ui/screens/task_tab/tasks_tab.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import '../../custom_widgets/add_task.dart';
 
@@ -23,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     settingsProvider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text((newlySelectedIndex == 0)? 'To-do List' : 'Settings'),
+        title: Text((newlySelectedIndex == 0)? AppLocalizations.of(context)!.app_title : AppLocalizations.of(context)!.settings),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -50,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.list), label: ''),
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: '')
+                icon: Icon(Icons.settings_outlined), label: '')
           ],
         ),
       ),
