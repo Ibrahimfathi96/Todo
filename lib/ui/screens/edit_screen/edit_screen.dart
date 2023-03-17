@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/Providers/settings_provider.dart';
 import 'package:todo_app/my_database/my_database.dart';
 import 'package:todo_app/utils/date_utils.dart';
 import 'package:todo_app/utils/dialog%20utils.dart';
@@ -14,39 +16,41 @@ class EditScreen extends StatefulWidget {
 }
 
 class _EditScreenState extends State<EditScreen> {
+  late SettingsProvider settingsProvider;
   @override
   Widget build(BuildContext context) {
     var taskMD = ModalRoute.of(context)?.settings.arguments as TaskMD;
+    settingsProvider = Provider.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Task'),
+        title: const Text('Edit Task'),
       ),
       body: SingleChildScrollView(
         child: Stack(
           children: [
             Container(
               height: 102,
-              color: MyTheme.lightPrimary,
+              color: Theme.of(context).accentColor,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 30, left: 30, bottom: 100, top: 30),
               child: Center(
                 child: Container(
-                  padding: EdgeInsets.only(bottom: 30),
-                  height: MediaQuery.of(context).size.height * 0.6,
+                  padding: const EdgeInsets.only(bottom: 30),
+                  height: MediaQuery.of(context).size.height * 0.7,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                      boxShadow: const [
+                      boxShadow: [
                         BoxShadow(
-                          color: Colors.grey, //New
+                          color: settingsProvider.currentTheme== ThemeMode.dark? MyTheme.darkPrimary:Colors.grey, //New
                           blurRadius: 25.0,
                         )
                       ],
-                      color: Colors.white,
+                      color: settingsProvider.currentTheme==ThemeMode.dark?MyTheme.darkPrimary:Colors.white,
                       borderRadius: BorderRadius.circular(25)),
                   child: Container(
-                    padding: EdgeInsets.all(14),
+                    padding: const EdgeInsets.all(14),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -60,7 +64,7 @@ class _EditScreenState extends State<EditScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Spacer(
+                              const Spacer(
                                 flex: 1,
                               ),
                               TextFormField(
@@ -74,12 +78,21 @@ class _EditScreenState extends State<EditScreen> {
                                       ?.copyWith(overflow: TextOverflow.fade, fontSize: 20),
 
                                 decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).accentColor
+                                      )
+                                  ),
                                     labelStyle: Theme.of(context)
                                         .textTheme
                                         .headlineLarge,
-                                    hintText: 'Edit the title'),
+                                    hintText: 'Edit the title',
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey
+                                  )
+                                ),
                               ),
-                              Spacer(
+                              const Spacer(
                                 flex: 1,
                               ),
                               TextFormField(
@@ -94,12 +107,20 @@ class _EditScreenState extends State<EditScreen> {
                                 maxLines: 4,
                                 minLines: 1,
                                 decoration: InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Theme.of(context).accentColor
+                                        )
+                                    ),
                                     labelStyle: Theme.of(context)
                                         .textTheme
                                         .headlineLarge,
-                                    hintText: 'Edit the description'),
+                                    hintText: 'Edit the description',
+                                    hintStyle: TextStyle(
+                                    color: Colors.grey
+                                )),
                               ),
-                              Spacer(
+                              const Spacer(
                                 flex: 1,
                               ),
                               Column(
@@ -132,7 +153,7 @@ class _EditScreenState extends State<EditScreen> {
                                               .textTheme
                                               .titleSmall
                                               ?.copyWith(
-                                                  color: MyTheme.lightPrimary,
+                                                  color: Theme.of(context).accentColor,
                                                   fontSize: 22),
                                         ),
                                       ),
@@ -140,7 +161,7 @@ class _EditScreenState extends State<EditScreen> {
                                   ),
                                 ],
                               ),
-                              Spacer(
+                              const Spacer(
                                 flex:2,
                               ),
                             ],
@@ -151,7 +172,7 @@ class _EditScreenState extends State<EditScreen> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 elevation: 10,
-                                backgroundColor: MyTheme.lightPrimary,
+                                backgroundColor: Theme.of(context).accentColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18))),
                             onPressed: () {
@@ -160,11 +181,11 @@ class _EditScreenState extends State<EditScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.check,
                                   size: 30,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 6,
                                 ),
                                 Text(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/Providers/settings_provider.dart';
 import 'package:todo_app/my_database/my_database.dart';
 import 'package:todo_app/my_database/task_db.dart';
 import 'package:todo_app/ui/my_theme.dart';
@@ -17,10 +19,13 @@ class TaskItems extends StatefulWidget {
 }
 
 class _TaskItemsState extends State<TaskItems> {
+  late SettingsProvider settingsProvider;
   @override
   Widget build(BuildContext context) {
+    settingsProvider = Provider.of(context);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+      margin: EdgeInsets.only(left: 18,right: 18,bottom: 18,),
+      // margin: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
       decoration: BoxDecoration(
           color: Colors.red, borderRadius: BorderRadius.circular(20)),
       child: Slidable(
@@ -55,14 +60,15 @@ class _TaskItemsState extends State<TaskItems> {
             height: 100,
             // margin: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                color: settingsProvider.currentTheme == ThemeMode.dark? MyTheme.darkPrimary:Colors.white,
+                borderRadius: BorderRadius.circular(20)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   margin: EdgeInsets.only(left: 12),
                   color:
-                  widget.taskMD.isDone? MyTheme.green: MyTheme.lightPrimary,
+                  widget.taskMD.isDone? MyTheme.green: Theme.of(context).accentColor,
                   width: 6,
                   height: 80,
                 ),
@@ -80,14 +86,14 @@ class _TaskItemsState extends State<TaskItems> {
                             .textTheme
                             .headlineLarge
                             ?.copyWith(
-                          color: widget.taskMD.isDone? MyTheme.green: Colors.black,
+                          color: widget.taskMD.isDone? MyTheme.green: Theme.of(context).accentColor,
                                 overflow: TextOverflow.fade, fontSize: 20),
                       ),
                       Text(
                         widget.taskMD.description,
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              color: widget.taskMD.isDone? MyTheme.green: Colors.black,
+                              color: widget.taskMD.isDone? MyTheme.green: Theme.of(context).accentColor,
                                   fontSize: 14,
                                   overflow: TextOverflow.fade,
                                 ),
@@ -120,7 +126,7 @@ class _TaskItemsState extends State<TaskItems> {
                           height: 45,
                           margin: EdgeInsets.only(right: 14),
                           decoration: BoxDecoration(
-                              color: MyTheme.lightPrimary,
+                              color: Theme.of(context).accentColor,
                               borderRadius: BorderRadius.circular(20)),
                           child: ImageIcon(AssetImage('assets/ic_check.png'),
                               color: Colors.white),

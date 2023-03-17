@@ -1,0 +1,13 @@
+{
+  "app_title": "قائمة المهام",
+  "add_new_task": "أضف مهمة جديدة",
+  "task_hint": "أدخل عنوان المهمة",
+  "task_description": "وصف المهمة",
+  "select_date": "أختر التاريخ",
+  "submit": "تم",
+  "settings": "الإعدادت",
+  "theme": "المظهر",
+  "light": "خفيف",
+  "dark": "داكن",
+  "lang": "اللغة"
+}

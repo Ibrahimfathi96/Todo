@@ -1,0 +1,13 @@
+{
+  "app_title": "To-Do List",
+  "add_new_task": "Add New Task",
+  "task_hint": "Enter Your Task Title",
+  "task_description": "Task Description",
+  "select_date": "Select Date",
+  "submit": "Submit",
+  "settings": "Settings",
+  "theme": "Theme",
+  "light": "Light",
+  "dark": "Dark",
+  "lang": "Language"
+}
