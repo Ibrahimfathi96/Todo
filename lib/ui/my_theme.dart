@@ -41,7 +41,7 @@ class MyTheme {
       scaffoldBackgroundColor: lightScaffoldBackGroundColor,
       appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(
-              color: lightPrimary
+              color: Colors.white
           ),
           backgroundColor: lightPrimary,
           elevation: 0,
@@ -51,7 +51,7 @@ class MyTheme {
   static final ThemeData darkTheme = ThemeData(
     accentColor:darkBlue ,
       floatingActionButtonTheme:
-      const FloatingActionButtonThemeData(backgroundColor: darkScaffoldBackGroundColor),
+      const FloatingActionButtonThemeData(backgroundColor: darkBlue),
       textTheme: const TextTheme(
         headlineSmall: TextStyle(
             fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),

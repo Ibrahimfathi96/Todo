@@ -190,7 +190,7 @@ class _EditScreenState extends State<EditScreen> {
                                   width: 6,
                                 ),
                                 Text(
-                                  AppLocalizations.of(context)!.submit,
+                                  AppLocalizations.of(context)!.save_changes,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall
@@ -246,7 +246,7 @@ class _EditScreenState extends State<EditScreen> {
   void editTask (TaskMD taskMD) async {
     Navigator.of(context).pop();
     if (!mounted) return;
-    DialogUtils.showMessage(context, 'Edit Successfully', posActionTitle:'OK', posAction: (){
+    DialogUtils.showMessage(context, AppLocalizations.of(context)!.edit_succ, posActionTitle:AppLocalizations.of(context)!.ok, posAction: (){
       Navigator.pop(context);
     } );
     await MyDatabase.editTasks(taskMD);

@@ -24,14 +24,14 @@ class _TaskItemsState extends State<TaskItems> {
   Widget build(BuildContext context) {
     settingsProvider = Provider.of(context);
     return Container(
-      margin: EdgeInsets.only(left: 18,right: 18,bottom: 18,),
+      margin: const EdgeInsets.only(left: 18,right: 18,bottom: 18,),
       // margin: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
       decoration: BoxDecoration(
           color: Colors.red, borderRadius: BorderRadius.circular(20)),
       child: Slidable(
         startActionPane: ActionPane(
           extentRatio: 0.21,
-          motion: DrawerMotion(),
+          motion: const DrawerMotion(),
           children: [
             SlidableAction(
               borderRadius: settingsProvider.currentLang=='en'?const BorderRadius.only(
@@ -144,19 +144,19 @@ class _TaskItemsState extends State<TaskItems> {
 
   void deleteTaskItem() {
     DialogUtils.showMessage(
-        context, 'Are you sure, you want to delete this task?',
-        posActionTitle: 'Yes', posAction: () async {
-      await MyDatabase.deleteTask(widget.taskMD);
+        context, AppLocalizations.of(context)!.are_you_sure,
+        posActionTitle: AppLocalizations.of(context)!.yes, posAction: () async {
+          DialogUtils.showProgressDialog(context, AppLocalizations.of(context)!.load);
+      await MyDatabase.deleteTask(widget.taskMD).timeout(const Duration(milliseconds: 500), onTimeout: (){Navigator.pop(context);});
       if (!mounted) return;
-      DialogUtils.showMessage(context, 'Task Deleted Successfully.',
-          posActionTitle: 'Ok',
+      DialogUtils.showMessage(context, AppLocalizations.of(context)!.delete_succ,
+          posActionTitle: AppLocalizations.of(context)!.ok,
           posAction: () {
-            Navigator.of(context).pop();
-          },
-          negActionTitle: 'Undo',
+         },
+          negActionTitle: AppLocalizations.of(context)!.undo,
           negAction: () {
             //Todo: Undo Button
           });
-    }, negActionTitle: 'No', negAction: () {});
+    }, negActionTitle: AppLocalizations.of(context)!.no, negAction: () {});
   }
 }

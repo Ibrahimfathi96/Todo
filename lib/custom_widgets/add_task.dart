@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/Providers/settings_provider.dart';
 import 'package:todo_app/my_database/my_database.dart';
 import 'package:todo_app/my_database/task_db.dart';
+import 'package:todo_app/ui/my_theme.dart';
 import 'package:todo_app/utils/date_utils.dart';
 import 'package:todo_app/utils/dialog%20utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -112,8 +113,13 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
             ),
             // ElevatedButton(onPressed: (){},
             //     child: Text('SUBMIT', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),))
-            FloatingActionButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
                 shape: const StadiumBorder(),
+                elevation: 10,
+                backgroundColor: Theme.of(context).accentColor,
+                padding: const EdgeInsets.symmetric(vertical: 10)
+              ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -168,29 +174,28 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
         title: titleController.text,
         description: descController.text,
         dateTime: selectedDate);
-    DialogUtils.showProgressDialog(context, 'Loading...');
+    DialogUtils.showProgressDialog(context, AppLocalizations.of(context)!.load);
     try {
-      await MyDatabase.insertTasks(task);
+      await MyDatabase.insertTasks(task).timeout(const Duration(milliseconds: 500), onTimeout: (){Navigator.pop(context);});
       if (!mounted) return;
-      DialogUtils.hideDialog(context);
-      DialogUtils.showMessage(context, 'Task inserted Successfully.',
-          posActionTitle: 'OK',
+      DialogUtils.showMessage(context, AppLocalizations.of(context)!.task_insert,
+          posActionTitle: AppLocalizations.of(context)!.ok,
           posAction: () {
             Navigator.of(context).pop();
           },
-          // negActionTitle: 'Cancel',
-          // negAction: () {
-          //   Navigator.of(context).pop();
-          // },
+          negActionTitle: AppLocalizations.of(context)!.cancel,
+          negAction: () {
+            Navigator.of(context).pop();
+          },
           isDismissible: false);
     } catch (e) {
       DialogUtils.hideDialog(context);
-      DialogUtils.showMessage(context, 'failed inserting the task.',
-          posActionTitle: 'try again',
+      DialogUtils.showMessage(context, AppLocalizations.of(context)!.failed_inserting,
+          posActionTitle: AppLocalizations.of(context)!.try_again,
           posAction: () {
             insertTask();
           },
-          negActionTitle: 'Cancel',
+          negActionTitle: AppLocalizations.of(context)!.cancel,
           negAction: () {
             Navigator.of(context).pop();
           },
