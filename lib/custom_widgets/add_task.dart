@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/Providers/settings_provider.dart';
 import 'package:todo_app/my_database/my_database.dart';
 import 'package:todo_app/my_database/task_db.dart';
-import 'package:todo_app/ui/my_theme.dart';
 import 'package:todo_app/utils/date_utils.dart';
 import 'package:todo_app/utils/dialog%20utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -54,7 +53,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
                   ),
                   labelStyle: Theme.of(context).textTheme.headlineLarge,
                   hintText: AppLocalizations.of(context)!.task_hint,
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                       color: Colors.grey
                   )
               ),
@@ -76,7 +75,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
                     )
                 ),
                 hintText: AppLocalizations.of(context)!.task_description,
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                       color: Colors.grey
                   ),
                 labelStyle: Theme.of(context).textTheme.headlineLarge,

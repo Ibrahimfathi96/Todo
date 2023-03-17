@@ -18,6 +18,7 @@ class EditScreen extends StatefulWidget {
 }
 
 class _EditScreenState extends State<EditScreen> {
+  var formKey = GlobalKey<FormState>();
   late SettingsProvider settingsProvider;
   @override
   Widget build(BuildContext context) {
@@ -70,6 +71,12 @@ class _EditScreenState extends State<EditScreen> {
                                 flex: 1,
                               ),
                               TextFormField(
+                                validator: (input) {
+                                  if (input == null || input.trim().isEmpty) {
+                                    return AppLocalizations.of(context)!.valid_title;
+                                  }
+                                  return null;
+                                },
                                 initialValue: taskMD.title,
                                   onChanged: (value){
                                   taskMD.title = value;
@@ -97,6 +104,12 @@ class _EditScreenState extends State<EditScreen> {
                                 flex: 1,
                               ),
                               TextFormField(
+                                validator: (input) {
+                                  if (input == null || input.trim().isEmpty) {
+                                    return AppLocalizations.of(context)!.valid_desc;
+                                  }
+                                  return null;
+                                },
                                 initialValue: taskMD.description,
                                   onChanged: (value){
                                   taskMD.description = value;
@@ -244,6 +257,9 @@ class _EditScreenState extends State<EditScreen> {
   }
 
   void editTask (TaskMD taskMD) async {
+    if (formKey.currentState?.validate() == false) {
+      return;
+    }
     Navigator.of(context).pop();
     if (!mounted) return;
     DialogUtils.showMessage(context, AppLocalizations.of(context)!.edit_succ, posActionTitle:AppLocalizations.of(context)!.ok, posAction: (){
