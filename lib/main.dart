@@ -1,4 +1,3 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/ui/my_theme.dart';
 import 'package:todo_app/ui/screens/edit_screen/edit_screen.dart';
 import 'package:todo_app/ui/screens/home_screen.dart';
+import 'package:todo_app/ui/screens/splash_screen.dart';
 import 'Providers/settings_provider.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
@@ -42,19 +42,22 @@ class MyTodoApp extends StatelessWidget {
           Locale('ar'), // Arabic
         ],
       routes: {
+          HomeScreen.routeName :(_)=>HomeScreen(),
         EditScreen.routeName: (_)=> EditScreen(),
+        SplashScreen.routeName: (_)=> SplashScreen(),
       },
       debugShowCheckedModeBanner: false,
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
         themeMode:settingsProvider.currentTheme ,
-      home: AnimatedSplashScreen(
-            duration: 3000,
-            splash: 'assets/splash.png',
-            splashIconSize: 600,
-            nextScreen: HomeScreen(),
-            splashTransition: SplashTransition.fadeTransition,
-            backgroundColor: MyTheme.lightScaffoldBackGroundColor)
+      initialRoute: SplashScreen.routeName,
+      // AnimatedSplashScreen(
+      //       duration: 3000,
+      //       splash: 'assets/splash.png',
+      //       splashIconSize: 600,
+      //       nextScreen: HomeScreen(),
+      //       splashTransition: SplashTransition.fadeTransition,
+      //       backgroundColor: MyTheme.lightScaffoldBackGroundColor)
     );
   }
   getValueFromSharedPreferences() async {
